@@ -5,10 +5,12 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 public class CardOrderTest {
     private WebDriver driver;
@@ -115,5 +117,15 @@ public class CardOrderTest {
         String expected = "Телефон указан неверно. Должно быть 11 цифр, например, +79012345678.";
         String actual = driver.findElement(By.cssSelector("[data-test-id=phone].input_invalid .input__sub")).getText().trim();
         assertEquals(expected, actual);
+    }
+
+    @Test
+    void shouldFillTheFormWithoutCheckbox() {
+        driver.get("http://localhost:9999");
+        driver.findElement(By.cssSelector("[data-test-id=name] input")).sendKeys("Кононов Максим");
+        driver.findElement(By.cssSelector("[data-test-id=phone] input")).sendKeys("+79991234567");
+        driver.findElement(By.className("button")).click();
+        WebElement check = driver.findElement(By.cssSelector("[data-test-id=agreement].input_invalid .checkbox__control"));
+        assertFalse(check.isSelected());
     }
 }
