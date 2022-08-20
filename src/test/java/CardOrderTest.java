@@ -1,16 +1,11 @@
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.chrome.*;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class CardOrderTest {
     private WebDriver driver;
@@ -125,7 +120,7 @@ public class CardOrderTest {
         driver.findElement(By.cssSelector("[data-test-id=name] input")).sendKeys("Кононов Максим");
         driver.findElement(By.cssSelector("[data-test-id=phone] input")).sendKeys("+79991234567");
         driver.findElement(By.className("button")).click();
-        WebElement check = driver.findElement(By.cssSelector("[data-test-id=agreement].input_invalid .checkbox__control"));
-        assertFalse(check.isSelected());
+        WebElement check = driver.findElement(By.cssSelector("[data-test-id=agreement].input_invalid"));
+        assertTrue(check.isDisplayed());
     }
 }
